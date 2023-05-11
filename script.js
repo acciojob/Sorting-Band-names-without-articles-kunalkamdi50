@@ -1,25 +1,15 @@
-let arr = ['Tajmahal', 'Victoria Memorial', 'The Virupaksha Temple'];
-let updatedList = arr.map((element) => {
-	// ["a", "some", "one"]
-	let words = element.split(" ") ;
-	let updatedString = words.reduce((prev, current, index) => {
-		if(current != "The" && current != "an" && current != "a"){
-			return prev + " " + current ;
-		}
-		return prev ;
-	}, "")
+let touristSpots = ['The Virupaksha Temple', 'Victoria Memorial', 'Tajmahal'];
 
-	return updatedString ;
-}) ;
-let mp = {} ; // {"some one" : "a some one"}
-updatedList.forEach( (element, index) => {
-	mp[element] = arr[index] ;
-})
-updatedList.sort(); 
+function strip (word) {
+    let regex = new RegExp('^(a |the |an )', 'i')
+    return word.replace(regex, '').trim()
+}
 
-let finalAns = updatedList.map((element) => {
-    return map[element] ;
-})
+const sortedBands = touristSpots.sort((a, b) => (strip(a) > strip(b)) ? 1 : -1)
 
-console.log(finalAns); 
 
+/** 
+ * add ul list in HTML
+ **/
+document.querySelector('#bands').innerHTML = 
+    sortedBands.map(item => `<li>${item}</li>`).join('')
